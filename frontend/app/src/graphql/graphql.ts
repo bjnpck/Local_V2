@@ -23,6 +23,14 @@ export type Scalars = {
   Timestamp: { input: string; output: string; }
 };
 
+/** Indicates whether the current, partially filled bucket should be included in the response. Defaults to `exclude` */
+export enum Aggregation_Current {
+  /** Exclude the current, partially filled bucket from the response */
+  Exclude = 'exclude',
+  /** Include the current, partially filled bucket in the response */
+  Include = 'include'
+}
+
 export enum Aggregation_Interval {
   Day = 'day',
   Hour = 'hour'
@@ -54,10 +62,8 @@ export type BorrowerInfo_Filter = {
   and?: InputMaybe<Array<InputMaybe<BorrowerInfo_Filter>>>;
   collSurplusBalance?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   collSurplusBalance_contains?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  collSurplusBalance_contains_nocase?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   collSurplusBalance_not?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   collSurplusBalance_not_contains?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  collSurplusBalance_not_contains_nocase?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   id?: InputMaybe<Scalars['ID']['input']>;
   id_gt?: InputMaybe<Scalars['ID']['input']>;
   id_gte?: InputMaybe<Scalars['ID']['input']>;
@@ -68,24 +74,18 @@ export type BorrowerInfo_Filter = {
   id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
   lastCollSurplusClaimAt?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   lastCollSurplusClaimAt_contains?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  lastCollSurplusClaimAt_contains_nocase?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   lastCollSurplusClaimAt_not?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   lastCollSurplusClaimAt_not_contains?: InputMaybe<Array<Scalars['BigInt']['input']>>;
-  lastCollSurplusClaimAt_not_contains_nocase?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   nextOwnerIndexes?: InputMaybe<Array<Scalars['Int']['input']>>;
   nextOwnerIndexes_contains?: InputMaybe<Array<Scalars['Int']['input']>>;
-  nextOwnerIndexes_contains_nocase?: InputMaybe<Array<Scalars['Int']['input']>>;
   nextOwnerIndexes_not?: InputMaybe<Array<Scalars['Int']['input']>>;
   nextOwnerIndexes_not_contains?: InputMaybe<Array<Scalars['Int']['input']>>;
-  nextOwnerIndexes_not_contains_nocase?: InputMaybe<Array<Scalars['Int']['input']>>;
   or?: InputMaybe<Array<InputMaybe<BorrowerInfo_Filter>>>;
   troves?: InputMaybe<Scalars['Int']['input']>;
   trovesByCollateral?: InputMaybe<Array<Scalars['Int']['input']>>;
   trovesByCollateral_contains?: InputMaybe<Array<Scalars['Int']['input']>>;
-  trovesByCollateral_contains_nocase?: InputMaybe<Array<Scalars['Int']['input']>>;
   trovesByCollateral_not?: InputMaybe<Array<Scalars['Int']['input']>>;
   trovesByCollateral_not_contains?: InputMaybe<Array<Scalars['Int']['input']>>;
-  trovesByCollateral_not_contains_nocase?: InputMaybe<Array<Scalars['Int']['input']>>;
   troves_gt?: InputMaybe<Scalars['Int']['input']>;
   troves_gte?: InputMaybe<Scalars['Int']['input']>;
   troves_in?: InputMaybe<Array<Scalars['Int']['input']>>;
@@ -1433,7 +1433,7 @@ export type AllInterestRateBracketsQuery = { __typename?: 'Query', interestRateB
 export type GovernanceGlobalDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GovernanceGlobalDataQuery = { __typename?: 'Query', governanceInitiatives: Array<{ __typename?: 'GovernanceInitiative', id: string }>, governanceVotingPower?: { __typename?: 'GovernanceVotingPower', allocatedLQTY: string, allocatedOffset: string, unallocatedLQTY: string, unallocatedOffset: string } | null };
+export type GovernanceGlobalDataQuery = { __typename?: 'Query', governanceInitiatives: Array<{ __typename?: 'GovernanceInitiative', id: string, registered: boolean }>, governanceVotingPower?: { __typename?: 'GovernanceVotingPower', allocatedLQTY: string, allocatedOffset: string, unallocatedLQTY: string, unallocatedOffset: string } | null };
 
 export type UserAllocationHistoryQueryVariables = Exact<{
   user?: InputMaybe<Scalars['String']['input']>;
@@ -1564,6 +1564,7 @@ export const GovernanceGlobalDataDocument = new TypedDocumentString(`
     query GovernanceGlobalData {
   governanceInitiatives {
     id
+    registered
   }
   governanceVotingPower(id: "total") {
     allocatedLQTY

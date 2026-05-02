@@ -30,9 +30,10 @@ export function SafetyModeBanner() {
       }
       linkLabel="Learn more"
       linkLabelMobile="Safety Mode active"
-      linkHref="https://docs.liquity.org/v2-faq/borrowing-and-liquidations#docs-internal-guid-fee4cc44-7fff-c866-9ccf-bac2da1b5222"
+      linkHref="https://docs.liquity.org/v2-faq/borrowing-and-liquidations#what-is-safety-mode"
       linkExternal
-      backgroundColor={token("colors.negativeStrong")}
+      backgroundColor={token("colors.brandGolden")}
+      foregroundColor={token("colors.brandGoldenContent")}
     />
   );
 }
