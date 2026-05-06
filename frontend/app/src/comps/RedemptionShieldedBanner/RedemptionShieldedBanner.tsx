@@ -28,7 +28,7 @@ export function RedemptionShieldedBanner({
   const detail = compact
     ? content.home.redemptionShieldBanner.detailCompact
     : shieldedBranches.length === 1
-      ? content.home.redemptionShieldBanner.detailSingle(fmtnum(first.spDeposits, "compact"), fmtnum(first.branchDebt, "compact"))
+      ? content.home.redemptionShieldBanner.detailSingle(fmtnum(dn.sub(first.spDeposits, first.branchDebt), "compact"))
       : content.home.redemptionShieldBanner.detailMultiple;
 
   return (

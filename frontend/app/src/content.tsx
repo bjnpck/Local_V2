@@ -204,11 +204,11 @@ export default {
           symbols.length === 1
             ? symbols[0]
             : `${symbols.slice(0, -1).join(", ")} and ${symbols[symbols.length - 1]}`
-        } borrowers are shielded from redemptions.`,
-      detailSingle: (spDeposits: string, branchDebt: string) =>
-        ` The stability pool ($${spDeposits}) exceeds total branch debt ($${branchDebt}), so you can safely borrow at the `,
-      detailMultiple: " Their stability pools exceed their total branch debt, so you can safely borrow at the ",
-      detailCompact: " Borrow safely at the ",
+        } borrowers are temporarily shielded from redemptions.`,
+      detailSingle: (headroom: string) =>
+        ` The Stability Pool exceeds total branch debt by $${headroom}, so you can currently borrow at the `,
+      detailMultiple: " Their Stability Pools exceed their total branch debt, so you can currently borrow at the ",
+      detailCompact: " Borrow at the ",
       learnMore: {
         text: "Learn more",
         href: "https://docs.liquity.org/v2-faq/redemptions-and-delegation",
