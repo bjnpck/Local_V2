@@ -197,6 +197,23 @@ export default {
         description: "Direct protocol incentives with LQTY while earning from Liquity V1",
       },
     },
+    redemptionShieldBanner: {
+      badgeLabel: "Redemption shielded",
+      headline: (symbols: string[]) =>
+        `${
+          symbols.length === 1
+            ? symbols[0]
+            : `${symbols.slice(0, -1).join(", ")} and ${symbols[symbols.length - 1]}`
+        } borrowers are temporarily shielded from redemptions.`,
+      detailSingle: (headroom: string) =>
+        ` The Stability Pool exceeds total branch debt by $${headroom}, so you can currently borrow at the `,
+      detailMultiple: " Their Stability Pools exceed their total branch debt, so you can currently borrow at the ",
+      detailCompact: " Borrow at the ",
+      learnMore: {
+        text: "Learn more",
+        href: "https://docs.liquity.org/v2-faq/redemptions-and-delegation#docs-internal-guid-441d8c3f-7fff-4efa-6319-4ba00d908597-2",
+      },
+    },
     earnTable: {
       title: "Earn rewards with BOLD",
       subtitle: "Earn BOLD & (staked) ETH rewards by depositing your BOLD in a stability pool",
